@@ -1,0 +1,37 @@
+<package format="2">
+  <name>trikey_gazebo</name>
+  <version>1.0.0</version>
+  <description>
+    <p>Gazebo files used for Trikey</p>
+  </description>
+  <author>Carlos Gonzalez</author>
+  <maintainer email="carlos.gonzalez@utexas.edu" />
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>message_runtime</exec_depend>
+
+  <build_export_depend>std_msgs</build_export_depend>
+  <build_export_depend>nav_msgs</build_export_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>rviz</build_depend>
+  <build_depend>tf2</build_depend>
+
+
+
+  <depend>gazebo_plugins</depend>
+  <depend>gazebo_ros</depend>
+  <depend>gazebo_ros_control</depend>
+
+  <depend>trikey_control</depend>
+  <depend>trikey_description</depend>
+
+  <export>
+    <architecture_independent />
+  </export>
+</package>
