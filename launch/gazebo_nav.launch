@@ -1,0 +1,16 @@
+<launch>
+
+
+    <!-- Gazebo Enviroment -->
+    <include file="$(find trikey_gazebo)/launch/turtle_world.launch"/>
+    <!-- Base Controller  + Rviz -->
+    <include file="$(find trikey_base_controller)/launch/trikey_base_controller.launch"/>
+
+    <!-- Odometery Node -->
+    <node name="odom" pkg="trikey_gazebo" type="odom" />
+
+
+
+
+
+</launch>

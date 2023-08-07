@@ -10,17 +10,17 @@
     <node name="odom" pkg="trikey_gazebo" type="odom" />
 
     <arg name="publish_urdf"         default="true" />
-    <arg name="camera_name"          default="kinect2" />
+    <arg name="camera_name"          default="kinect" />
     <!-- <arg name="base_frame"           default="camera_link" /> -->
 
     <group ns="$(arg camera_name)">
         <!-- RTAB-Map -->
         <arg name="custom_rtabmap_launch_file" default="$(find trikey_gazebo)/launch/include/gazebo_rtabmap.launch.xml"/>
         <include file="$(arg custom_rtabmap_launch_file)">
-            <arg name="rgb_topic"               default="/kinect2/color/image_raw" />
-            <arg name="depth_topic"             default="/kinect2/depth/image_raw" />
-            <arg name="camera_info_topic"       default="/kinect2/camera_info" />
-            <arg name="depth_camera_info_topic" default="/kinect2/depth/camera_info" />
+            <arg name="rgb_topic"               default="/kinect/color/image_raw" />
+            <arg name="depth_topic"             default="/kinect/depth/image_raw" />
+            <arg name="camera_info_topic"       default="/kinect/camera_info" />
+            <arg name="depth_camera_info_topic" default="/kinect/depth/camera_info" />
             <arg name="odom_topic"              default="/trikey/odom" />    <!-- Odometry topic name -->
         </include>   
     </group>

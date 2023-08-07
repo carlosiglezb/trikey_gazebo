@@ -1,0 +1,54 @@
+<launch>
+
+  <!-- Arguments -->
+    <arg name="teleop" default="true" />
+    <arg name="slam_toolbox" default="true" />
+    <arg name="vel_topic" default="/gazebo/cmd_vel" />
+  
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+    <!-- <rosparam file="$(find trikey_control)/config/trikey_control.yaml" command="load"/> -->
+
+  <!-- Load URDF -->
+    <param name="robot_description" command="$(find xacro)/xacro '$(find trikey_description)/urdf/urdf_gazebo/robot.urdf.xacro'"/>
+
+  <!-- Spwan the Robot -->
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model trikey -x 0.5 -y 0.5 -z 0.3 -param robot_description" /> 
+
+
+  <!-- publish joints TFs for Rviz -->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
+      <remap from="/joint_states" to="/joint_states" />
+    </node>
+
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+
+  
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find turtlebot3_gazebo)/worlds/turtlebot3_house.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="recording" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <!-- Publish Odom -->
+  <node name="icp_odometry" pkg="rtabmap_odom" type="icp_odometry">
+    <remap from="odom" to="/odom"/>
+
+  </node>
+  
+
+
+  <!-- Keyboard Teleop -->
+  <group if="$(arg teleop)"> 
+    <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen" >
+      <remap from="cmd_vel" to="$(arg vel_topic)"/>
+    </node>
+
+
+  </group>
+
+</launch>
