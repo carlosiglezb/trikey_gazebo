@@ -3,7 +3,7 @@
   <!-- Arguments -->
     <arg name="teleop" default="true" />
     <arg name="vel_topic" default="/gazebo/cmd_vel" />
-    <arg name="icp_odom" default="true" />
+    <arg name="icp_odom" default="false" />
   
 
   <!-- Load joint controller configurations from YAML file to parameter server -->
