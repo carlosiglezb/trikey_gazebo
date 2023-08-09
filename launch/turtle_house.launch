@@ -3,6 +3,7 @@
   <!-- Arguments -->
     <arg name="teleop" default="true" />
     <arg name="vel_topic" default="/gazebo/cmd_vel" />
+    <arg name="icp_odom" default="true" />
   
 
   <!-- Load joint controller configurations from YAML file to parameter server -->
@@ -33,10 +34,12 @@
     <arg name="debug" value="false"/>
   </include>
 
-  <!-- Publish Odom -->
-  <include file="$(find bumpybot_navigation)/launch/icp_odom.launch">
-    <arg name="rviz" value="false"/>
-  </include>
+  <!-- Publish ICP Odom -->
+  <group if="$(arg icp_odom)">
+    <include file="$(find bumpybot_navigation)/launch/icp_odom.launch">
+      <arg name="rviz" value="false"/>
+    </include>
+  </group>
 
   
   <!-- Keyboard Teleop -->

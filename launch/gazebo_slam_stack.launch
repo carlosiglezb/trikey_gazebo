@@ -11,7 +11,7 @@
 
 
 <!-- Gazebo -->
-<include file="$(find trikey_gazebo)/launch/turtle_world.launch">
+<include file="$(find trikey_gazebo)/launch/turtle_house.launch">
     <arg name="teleop" value="$(arg teleop)"/>
 </include>
 
