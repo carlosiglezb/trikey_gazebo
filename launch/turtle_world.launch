@@ -2,7 +2,6 @@
 
   <!-- Arguments -->
     <arg name="teleop" default="true" />
-    <arg name="slam_toolbox" default="true" />
     <arg name="vel_topic" default="/gazebo/cmd_vel" />
   
 
@@ -10,7 +9,7 @@
     <!-- <rosparam file="$(find trikey_control)/config/trikey_control.yaml" command="load"/> -->
 
   <!-- Load URDF -->
-    <param name="robot_description" command="$(find xacro)/xacro '$(find trikey_description)/urdf/urdf_gazebo/robot.urdf.xacro'"/>
+    <param name="robot_description" command="$(find xacro)/xacro '$(find trikey_description)/urdf/TrikeyBaseAssembly.urdf.xacro'"/>
 
   <!-- Spwan the Robot -->
     <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model trikey -x 0.5 -y 0.5 -z 0.3 -param robot_description" /> 
@@ -35,20 +34,16 @@
   </include>
 
   <!-- Publish Odom -->
-  <node name="icp_odometry" pkg="rtabmap_odom" type="icp_odometry">
-    <remap from="odom" to="/odom"/>
+  <include file="$(find bumpybot_navigation)/launch/icp_odom.launch">
+    <arg name="rviz" value="false"/>
+  </include>
 
-  </node>
   
-
-
   <!-- Keyboard Teleop -->
   <group if="$(arg teleop)"> 
     <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen" >
       <remap from="cmd_vel" to="$(arg vel_topic)"/>
     </node>
-
-
   </group>
 
 </launch>
