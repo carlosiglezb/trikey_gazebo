@@ -2,15 +2,26 @@
 
   <!-- Arguments -->
     <arg name="teleop" default="true" />
+    <arg name="roller" default="false" />
     <arg name="vel_topic" default="/gazebo/cmd_vel" />
     <arg name="icp_odom" default="false" />
   
 
-  <!-- Load joint controller configurations from YAML file to parameter server -->
-    <!-- <rosparam file="$(find trikey_control)/config/trikey_control.yaml" command="load"/> -->
+ 
 
-  <!-- Load URDF -->
-    <param name="robot_description" command="$(find xacro)/xacro '$(find trikey_description)/urdf/TrikeyBaseAssembly.urdf.xacro'"/>
+  <!--  Import URDF  -->
+  <!-- With Rollers -->
+  <group if="$(arg roller)">
+    <param name="robot_description" command="$(find xacro)/xacro '$(find trikey_description)/urdf/urdf_generator/robot.urdf.xacro'"/>
+     <!-- Load joint controller configurations from YAML file to parameter server -->
+    <rosparam file="$(find trikey_control)/config/trikey_control.yaml" command="load"/>
+  </group>
+
+  <!-- Without Rollers -->
+  <group unless="$(arg roller)">
+    <param name="robot_description" command="$(find xacro)/xacro '$(find trikey_description)/urdf/urdf_generator/robot.urdf.xacro'"/>
+  </group>
+
 
   <!-- Spwan the Robot -->
     <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model trikey -x 0.5 -y 0.5 -z 0.3 -param robot_description" /> 
