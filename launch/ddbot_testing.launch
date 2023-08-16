@@ -1,30 +1,26 @@
 <launch>
 
+<!-- Arguments -->
+<arg name ="teleop" default="true"/>
+<arg name="cmd_vel_topic" default="gazebo/cmd_vel" />
+<arg name="odom_topic" default="odom" />
+<arg name="base_frame" default="base_link"/>
+<arg name="odom_frame" default="odom"/>
+<arg name="scan" default="scan"/>
+<arg name ="rviz" default="true"/>
+
+
   <!-- Arguments -->
-    <arg name="teleop" default="true" />
-    <arg name="roller" default="false" />
-    <arg name="vel_topic" default="/gazebo/cmd_vel" />
-    <arg name="icp_odom" default="true" />
+<arg name="icp_odom" default="true" />
   
 
- 
-
   <!--  Import URDF  -->
-  <!-- With Rollers -->
-  <group if="$(arg roller)">
-    <param name="robot_description" command="$(find xacro)/xacro '$(find trikey_description)/urdf/urdf_generator/robot.urdf.xacro'"/>
-     <!-- Load joint controller configurations from YAML file to parameter server -->
-    <rosparam file="$(find trikey_control)/config/trikey_control.yaml" command="load"/>
-  </group>
+ <param name="robot_description" command="$(find xacro)/xacro '$(find trikey_description)/urdf/ddbot/ddbot.urdf.xacro'"/>
 
-  <!-- Without Rollers -->
-  <group unless="$(arg roller)">
-    <param name="robot_description" command="$(find xacro)/xacro '$(find trikey_description)/urdf/urdf_generator/simbot.urdf.xacro'"/>
-  </group>
 
 
   <!-- Spwan the Robot -->
-    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model trikey -x 0.5 -y 0.5 -z 0.3 -param robot_description" /> 
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model robot -x 0.5 -y 0.5 -z 0.3 -param robot_description" /> 
 
 
   <!-- publish joints TFs for Rviz -->
@@ -56,8 +52,10 @@
   <!-- Keyboard Teleop -->
   <group if="$(arg teleop)"> 
     <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen" >
-      <remap from="cmd_vel" to="$(arg vel_topic)"/>
+      <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
     </node>
   </group>
+
+
 
 </launch>
