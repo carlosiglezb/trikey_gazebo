@@ -3,7 +3,7 @@
   <!-- Arguments -->
     <arg name="teleop" default="true" />
     <arg name="roller" default="false" />
-    <arg name="vel_topic" default="/gazebo/cmd_vel" />
+    <arg name="vel_topic" default="/trikey/base_controller/cmd_vel" />
     <arg name="icp_odom" default="true" />
   
 
@@ -48,6 +48,7 @@
   <group if="$(arg icp_odom)">
     <include file="$(find bumpybot_navigation)/launch/icp_odom.launch">
       <arg name="rviz" value="false"/>
+      <arg name="filter" value="true"/>
     </include>
   </group>
 
