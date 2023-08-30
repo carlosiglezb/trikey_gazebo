@@ -23,7 +23,7 @@
 
 
   <!-- Spwan the Robot -->
-    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model trikey -x 0.0 -y 0.0 -z 0.3 -param robot_description" /> 
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model trikey -x -0.5 -y 0.1 -z 0.3 -param robot_description" /> 
 
 
   <!-- publish joints TFs for Rviz -->
