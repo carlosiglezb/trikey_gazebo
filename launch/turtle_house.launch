@@ -4,7 +4,7 @@
     <arg name="teleop" default="true" />
     <arg name="roller" default="false" />
     <arg name="vel_topic" default="/trikey/base_controller/cmd_vel" />
-    <arg name="icp_odom" default="true" />
+    <arg name="icp_odom" default="false" />
   
 
 
@@ -12,8 +12,7 @@
   <!-- With Rollers -->
   <group if="$(arg roller)">
     <param name="robot_description" command="$(find xacro)/xacro '$(find trikey_description)/urdf/urdf_generator/robot.urdf.xacro'"/>
-     <!-- Load joint controller configurations from YAML file to parameter server -->
-    <rosparam file="$(find trikey_control)/config/trikey_control.yaml" command="load"/>
+  <!-- TODO: Incorparate trikey_base_controller to simulate roller physics -->
   </group>
 
   <!-- Without Rollers -->
@@ -51,7 +50,7 @@
       <arg name="filter" value="true"/>
     </include>
   </group>
-
+  
   
   <!-- Keyboard Teleop -->
   <group if="$(arg teleop)"> 
