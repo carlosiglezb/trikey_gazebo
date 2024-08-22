@@ -1,5 +1,12 @@
 # Bumpybot Simulation in Gazebo
 
+## Visualize Bumpybot in Rviz
+Run the following command:
+
+`roslaunch trikey_description trikey_rviz.launch`
+
+This runs `robot_state_publisher` and `joint_state_publisher` from the Bumpybot's URDF file visualizing the robot in Rviz.
+
 ## Launch Robot in Gazebo
 
 In order to spawn BumpyBot in turtlebot3 house, run the following command:

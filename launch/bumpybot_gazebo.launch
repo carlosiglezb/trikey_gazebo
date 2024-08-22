@@ -2,24 +2,11 @@
 
   <!-- Arguments -->
     <arg name="teleop" default="true" />
-    <arg name="roller" default="false" />
     <arg name="vel_topic" default="/trikey/base_controller/cmd_vel" />
-    <arg name="icp_odom" default="false" />
-  
+    <arg name="world" default="turtlebot3_house.world" /> <!-- options: turtlebot3_house.world | cafe.world -->
 
 
-  <!--  Import URDF  -->
-  <!-- With Rollers -->
-  <group if="$(arg roller)">
     <param name="robot_description" command="$(find xacro)/xacro '$(find trikey_description)/urdf/urdf_generator/robot.urdf.xacro'"/>
-  <!-- TODO: Incorparate trikey_base_controller to simulate roller physics -->
-  </group>
-
-  <!-- Without Rollers -->
-  <group unless="$(arg roller)">
-    <param name="robot_description" command="$(find xacro)/xacro '$(find trikey_description)/urdf/urdf_generator/simbot.urdf.xacro'"/>
-  </group>
-
 
   <!-- Spwan the Robot -->
     <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model trikey -x -0.5 -y 0.1 -z 0.3 -param robot_description" /> 
@@ -35,7 +22,7 @@
 
   
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find turtlebot3_gazebo)/worlds/turtlebot3_house.world"/>
+    <arg name="world_name" value="$(find trikey_gazebo)/worlds/$(arg world)"/>
     <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
     <arg name="gui" value="true"/>
@@ -43,15 +30,7 @@
     <arg name="debug" value="false"/>
   </include>
 
-  <!-- Publish ICP Odom -->
-  <group if="$(arg icp_odom)">
-    <include file="$(find bumpybot_navigation)/launch/icp_odom.launch">
-      <arg name="rviz" value="false"/>
-      <arg name="filter" value="true"/>
-    </include>
-  </group>
-  
-  
+
   <!-- Keyboard Teleop -->
   <group if="$(arg teleop)"> 
     <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen" >

@@ -15,6 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
   nav_msgs
   std_msgs
   tf2
+  gazebo_ros
 )
 
 
@@ -24,13 +25,18 @@ catkin_package(
         message_runtime 
         std_msgs
         nav_msgs
+        gazebo_ros
+        DEPENDS GAZEBO
 
 )
 
+link_directories(${GAZEBO_LIBRARY_DIRS})
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
+  ${GAZEBO_INCLUDE_DIRS}
 )
+
 
 
 ## Mark executable scripts (Python etc.) for installation
@@ -44,5 +50,5 @@ include_directories(
 install(DIRECTORY launch
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 
-# install(DIRECTORY worlds
-        # DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+install(DIRECTORY launch models worlds 
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})

@@ -23,7 +23,6 @@
   <build_depend>tf2</build_depend>
 
 
-
   <depend>gazebo_plugins</depend>
   <depend>gazebo_ros</depend>
   <depend>gazebo_ros_control</depend>
@@ -32,6 +31,8 @@
   <depend>trikey_description</depend>
 
   <export>
-    <architecture_independent />
+    <gazebo_ros gazebo_media_path="${prefix}"/>
+    <gazebo_ros gazebo_model_path="${prefix}/models"/>
   </export>
+
 </package>
