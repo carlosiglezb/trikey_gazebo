@@ -13,7 +13,7 @@
     <arg name="camera_info_topic"       default="/kinect2/camera_info" />
     <arg name="depth_camera_info_topic" default="/kinect2/depth/camera_info" />
 
-    <arg name="odom_topic"              default="/trikey/odom" />    <!-- Odometry topic name -->
+    <arg name="odom_topic"              default="/odom" />    <!-- Odometry topic name -->
 
 
     <!-- RTABmapviz -->

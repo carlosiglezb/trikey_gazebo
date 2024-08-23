@@ -2,16 +2,11 @@
 
 
     <!-- Gazebo Enviroment -->
-    <include file="$(find trikey_gazebo)/launch/turtle_house.launch"/>
-    <!-- Base Controller  + Rviz -->
-    <include file="$(find trikey_base_controller)/launch/trikey_base_controller.launch"/>
-
-    <!-- Odometery Node -->
-    <node name="odom" pkg="trikey_gazebo" type="odom" />
+    <include file="$(find trikey_gazebo)/launch/bumpybot_gazebo.launch"/>
 
     <arg name="publish_urdf"         default="true" />
     <arg name="camera_name"          default="kinect" />
-    <!-- <arg name="base_frame"           default="camera_link" /> -->
+
 
     <group ns="$(arg camera_name)">
         <!-- RTAB-Map -->
@@ -21,7 +16,7 @@
             <arg name="depth_topic"             default="/kinect/depth/image_raw" />
             <arg name="camera_info_topic"       default="/kinect/camera_info" />
             <arg name="depth_camera_info_topic" default="/kinect/depth/camera_info" />
-            <arg name="odom_topic"              default="/trikey/odom" />    <!-- Odometry topic name -->
+            <arg name="odom_topic"              default="/odom" />    <!-- Odometry topic name -->
         </include>   
     </group>
 
